@@ -1,0 +1,96 @@
+:root {
+  --main-font: 'Helvetica Neue', sans-serif;
+
+  --holder-width: 475px;
+  --holder-background: #1d1d1d;
+
+  --main-text-color: #636363;
+  --main-background: #191919;
+
+  --cal-background: #171717;
+  --cal-text: #797979;
+
+  --hilight-color: #7c80a3; 
+
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--main-font);
+  background: var(--main-background);
+  height: 100%;
+  color: var(--main-text-color);
+  font-size: 1.5em;
+}
+
+#holder {
+  background: var(--holder-background);
+  max-width: var(--holder-width);
+  margin: auto;
+  height: 100%;
+}
+
+#sudoku {
+  padding-top: 20px;
+}
+
+.sudoku-grid {
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.sudoku-grid > div {
+  border: 1px #444;
+  border-style: dotted;
+}
+
+.sudoku-grid .cell {
+  text-align: center;
+  height: 32px;
+  padding-top: 6px;
+  /* transition: .5s all; */
+  color: #7b7d8e;
+}
+
+.sudoku-grid .cell.neighbour {
+  background: #161616;
+}
+
+.sudoku-grid .cell.original {
+  color: var(--main-text-color)
+}
+
+.sudoku-grid .cell.hilight {
+  /* color: #b1b1b1; */
+  background: #0e0e0e;
+}
+
+.sudoku-grid .cell.selected {
+  background: #20232b;
+}
+
+.number-btns {
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: repeat(10, 1fr);
+  margin: 10px auto;
+}
+
+.number-btn {
+  text-align: center;
+}
+
+button {
+  padding: 3px 8px;
+  background: #7b7d8e;
+  border: none;
+  font-size: .6em;
+  border-radius: 3px;
+}
+
+.number-btn.disabled button {
+  background: #3f4150;
+}
