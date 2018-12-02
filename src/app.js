@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 import { app } from 'hyperapp';
 
 import actions from './actions';
