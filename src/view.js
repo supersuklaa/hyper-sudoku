@@ -67,6 +67,12 @@ const NumberButton = ({ i }) => (state, actions) => {
   );
 };
 
+const TimerBlock = () => (state, actions) => (
+  <div class='timer' oncreate={e => actions.startTimer(e)}>
+    00:00
+  </div>
+);
+
 export default () => (state, actions) => (
   <div id='holder' oncreate={() => actions.init()}>
     <div id='sudoku'>
@@ -80,6 +86,7 @@ export default () => (state, actions) => (
         <button>x</button>
       </div>
     </div>
+    <TimerBlock />
     <div>
       <button onclick={() => actions.populate()}>
         New game!

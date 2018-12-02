@@ -21,7 +21,7 @@ export default {
     }
   },
 
-  populate: () => {
+  populate: () => (state, actions) => {
     const puzzle = sudoku.makepuzzle();
     let p = 0;
 
@@ -52,9 +52,17 @@ export default {
       });
     });
 
+    const numberAmounts = countUsed(puzzle);
+
+    storage.setBoard(board);
+    storage.setAmounts(numberAmounts);
+
+    actions.startTimer();
+
     return {
       board,
-      numberAmounts: countUsed(puzzle),
+      numberAmounts,
+      startDate: new Date().getTime(),
       activeCell: null,
     };
   },
@@ -89,11 +97,47 @@ export default {
     }
 
     storage.setBoard(newBoard);
+    storage.setAmounts(newNumberAmounts);
 
     return {
       board: newBoard,
       numberAmounts: newNumberAmounts,
       activeCell: newActiveCell,
+    };
+  },
+
+  startTimer: e => (state) => {
+    const start = new Date().getTime();
+    const element = state.timer.element || e;
+
+    if (!element) {
+      return null;
+    }
+
+    if (state.timer.interval) {
+      clearInterval(state.timer.interval);
+    }
+
+    element.innerHTML = '00:00';
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = now - start;
+
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+      if (seconds < 10) seconds = `0${seconds}`;
+      if (minutes < 10) minutes = `0${minutes}`;
+
+      element.innerHTML = `${minutes}:${seconds}`;
+    }, 1000);
+
+    return {
+      timer: {
+        element,
+        interval,
+      },
     };
   },
 };

@@ -1,7 +1,7 @@
 :root {
   --main-font: 'Helvetica Neue', sans-serif;
 
-  --holder-width: 475px;
+  --holder-width: 425px;
   --holder-background: #1d1d1d;
 
   --main-text-color: #636363;
@@ -30,6 +30,7 @@ body {
   max-width: var(--holder-width);
   margin: auto;
   height: 100%;
+  text-align: center;
 }
 
 #sudoku {
@@ -48,7 +49,6 @@ body {
 }
 
 .sudoku-grid .cell {
-  text-align: center;
   height: 32px;
   padding-top: 6px;
   /* transition: .5s all; */
@@ -80,7 +80,6 @@ body {
 }
 
 .number-btn {
-  text-align: center;
 }
 
 button {
@@ -94,4 +93,9 @@ button {
 
 .number-btn.disabled button {
   background: #3f4150;
+}
+
+.timer {
+  margin: 20px auto 15px;
+  font-size: .8em;
 }
