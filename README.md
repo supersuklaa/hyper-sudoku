@@ -3,7 +3,7 @@ Very basic sudoku single page application.
 
 ## Demo
 
-Is up and living at [gh-pages](https://supersuklaa.github.io/hyper-cal/).
+Is up and living at [gh-pages](https://supersuklaa.github.io/hyper-sudoku/).
 
 ## Installing
 

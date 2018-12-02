@@ -89,6 +89,7 @@ button {
   border: none;
   font-size: .6em;
   border-radius: 3px;
+  -webkit-appearance: none;
 }
 
 .number-btn.disabled button {

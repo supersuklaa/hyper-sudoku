@@ -18,7 +18,7 @@
     "dependencies": {
         "eslint": "^5.1.0",
         "hyperapp": "^1.2.6",
-        "parcel-bundler": "^1.9.7",
+        "parcel-bundler": "^1.10.3",
         "parcel-plugin-clean-dist": "0.0.6",
         "sudoku": "0.0.2"
     }
