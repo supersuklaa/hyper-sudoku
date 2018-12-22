@@ -80,24 +80,37 @@ const TimerBlock = () => (state, actions) => (
   </div>
 );
 
-export default () => (state, actions) => (
-  <div id='holder'>
-    <div id='sudoku'>
-      <SudokuMainGrid />
-    </div>
-    <div class='number-btns'>
-      {utils.repeat(9, i => (
-        <NumberButton i={i} />
-      ))}
-      <div class='number-btn' onclick={() => actions.fill('')}>
-        <button>x</button>
+export default () => (state, actions) => {
+  if (!state.board) {
+    return (
+      <div id='holder' class='starter'>
+        <h2>hyper-sudoku</h2>
+        <button onclick={() => actions.populate()}>
+          Start game!
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div id='holder'>
+      <div id='sudoku'>
+        <SudokuMainGrid />
+      </div>
+      <div class='number-btns'>
+        {utils.repeat(9, i => (
+          <NumberButton i={i} />
+        ))}
+        <div class='number-btn' onclick={() => actions.fill('')}>
+          <button>x</button>
+        </div>
+      </div>
+      <TimerBlock />
+      <div>
+        <button onclick={() => actions.populate()}>
+          New game!
+        </button>
       </div>
     </div>
-    <TimerBlock />
-    <div>
-      <button onclick={() => actions.populate()}>
-        New game!
-      </button>
-    </div>
-  </div>
-);
+  );
+};

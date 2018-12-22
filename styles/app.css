@@ -99,3 +99,8 @@ button {
   margin: 20px auto 15px;
   font-size: .8em;
 }
+
+.starter h2 {
+  margin: 0 auto;
+  padding: 2em;
+}

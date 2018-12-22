@@ -1,7 +1,7 @@
 import storage from './storage';
 
 export default {
-  board: storage.getBoard() || [],
+  board: storage.getBoard(),
   times: [],
   activeCell: null,
   numberAmounts: storage.getAmounts() || [],
