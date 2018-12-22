@@ -1,27 +1,18 @@
 import sudoku from 'sudoku';
 
 import storage from './storage';
+import utils from './utils';
 
 const countUsed = board => board
   .filter(i => i !== null)
   .reduce((prev, curr) => {
     const arr = prev;
-    if (arr[curr]) {
-      arr[curr] += 1;
-    } else {
-      arr[curr] = 1;
-    }
+    arr[curr] += 1;
     return arr;
-  }, []);
+  }, new Array(9).fill(0));
 
 export default {
-  init: () => (state, actions) => {
-    if (state.board.length < 1) {
-      actions.populate();
-    }
-  },
-
-  populate: () => (state, actions) => {
+  populate: () => {
     const puzzle = sudoku.makepuzzle();
     let p = 0;
 
@@ -57,28 +48,22 @@ export default {
     storage.setBoard(board);
     storage.setAmounts(numberAmounts);
 
-    actions.startTimer();
-
     return {
       board,
       numberAmounts,
-      startDate: new Date().getTime(),
       activeCell: null,
+      timerKey: new Date().getTime(),
     };
   },
 
-  activate: activeCell => ({ activeCell }),
+  activate: cell => ({ activeCell: cell }),
 
   fill: value => ({ board, activeCell, numberAmounts }) => {
-    if (!activeCell) {
+    if (!activeCell || activeCell.isOriginal) {
       return null;
     }
 
     const { p, i } = activeCell;
-
-    if (board[p][i].isOriginal) {
-      return null;
-    }
 
     const newNumberAmounts = numberAmounts;
 
@@ -86,15 +71,15 @@ export default {
       newNumberAmounts[board[p][i].value - 1] -= 1;
     }
 
+    if (+value > 0) {
+      newNumberAmounts[value - 1] += 1;
+    }
+
     const newBoard = board;
     newBoard[p][i].value = value;
 
     const newActiveCell = activeCell;
     newActiveCell.value = value;
-
-    if (+newBoard[p][i].value > 0) {
-      newNumberAmounts[newBoard[p][i].value - 1] += 1;
-    }
 
     storage.setBoard(newBoard);
     storage.setAmounts(newNumberAmounts);
@@ -106,38 +91,23 @@ export default {
     };
   },
 
-  startTimer: e => (state) => {
-    const start = new Date().getTime();
-    const element = state.timer.element || e;
+  initTimer: (e) => {
+    const element = e;
+    let hourglass = storage.getHourglass() || 0;
 
-    if (!element) {
-      return null;
-    }
+    element.innerHTML = utils.countdown(hourglass);
 
-    if (state.timer.interval) {
-      clearInterval(state.timer.interval);
-    }
-
-    element.innerHTML = '00:00';
-
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = now - start;
-
-      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-      if (seconds < 10) seconds = `0${seconds}`;
-      if (minutes < 10) minutes = `0${minutes}`;
-
-      element.innerHTML = `${minutes}:${seconds}`;
+    const timer = setInterval(() => {
+      hourglass += 1;
+      storage.setHourglass(hourglass);
+      element.innerHTML = utils.countdown(hourglass);
     }, 1000);
 
-    return {
-      timer: {
-        element,
-        interval,
-      },
-    };
+    return { timer };
+  },
+
+  zeroTimer: () => ({ timer }) => {
+    clearInterval(timer);
+    storage.setHourglass(0);
   },
 };

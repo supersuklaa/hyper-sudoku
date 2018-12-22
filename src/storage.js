@@ -1,15 +1,17 @@
 
-const STOARAGE_KEY_PREFIX = 'hyper-sudoku-';
+const prefix = 'hyper-sudoku-';
 
-const get = key => ((localStorage.getItem(key))
-  ? JSON.parse(localStorage.getItem(key))
-  : []);
+const get = key => ((localStorage.getItem(`${prefix}${key}`))
+  ? JSON.parse(localStorage.getItem(`${prefix}${key}`))
+  : null);
 
-const set = (key, data) => localStorage.setItem(key, JSON.stringify(data));
+const set = (key, data) => localStorage.setItem(`${prefix}${key}`, JSON.stringify(data));
 
 export default {
-  getBoard: () => get(`${STOARAGE_KEY_PREFIX}board`),
-  setBoard: data => set(`${STOARAGE_KEY_PREFIX}board`, data),
-  getAmounts: () => get(`${STOARAGE_KEY_PREFIX}amounts`),
-  setAmounts: data => set(`${STOARAGE_KEY_PREFIX}amounts`, data),
+  getBoard: () => get('board'),
+  setBoard: data => set('board', data),
+  getAmounts: () => get('amounts'),
+  setAmounts: data => set('amounts', data),
+  getHourglass: () => get('hourglass'),
+  setHourglass: data => set('hourglass', data),
 };

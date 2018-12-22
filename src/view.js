@@ -68,13 +68,20 @@ const NumberButton = ({ i }) => (state, actions) => {
 };
 
 const TimerBlock = () => (state, actions) => (
-  <div class='timer' oncreate={e => actions.startTimer(e)}>
+  <div class='timer'
+    key={state.timerKey}
+    oncreate={e => actions.initTimer(e)}
+    onremove={(e, done) => {
+      actions.zeroTimer();
+      done();
+    }}
+    >
     00:00
   </div>
 );
 
 export default () => (state, actions) => (
-  <div id='holder' oncreate={() => actions.init()}>
+  <div id='holder'>
     <div id='sudoku'>
       <SudokuMainGrid />
     </div>

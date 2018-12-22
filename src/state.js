@@ -1,13 +1,10 @@
 import storage from './storage';
 
 export default {
-  board: storage.getBoard(),
+  board: storage.getBoard() || [],
   times: [],
   activeCell: null,
-  numberAmounts: storage.getAmounts(),
-  startDate: new Date().getTime(),
-  timer: {
-    element: null,
-    interval: null,
-  },
+  numberAmounts: storage.getAmounts() || [],
+  timer: null,
+  timerKey: new Date().getTime(),
 };
