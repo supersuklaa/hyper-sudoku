@@ -14,4 +14,6 @@ export default {
   setAmounts: data => set('amounts', data),
   getHourglass: () => get('hourglass'),
   setHourglass: data => set('hourglass', data),
+  getTimes: () => get('times'),
+  setTimes: data => set('times', data),
 };

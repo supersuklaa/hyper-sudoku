@@ -54,6 +54,7 @@ export default {
       numberAmounts,
       activeCell: null,
       timerKey: new Date().getTime(),
+      resolved: false,
     };
   },
 
@@ -120,9 +121,9 @@ export default {
     storage.setHourglass(0);
   },
 
-  checkSolution: () => ({ board, puzzle, timer }) => {
-    const proposal = board.flat();
-    const solution = sudoku.solvepuzzle(puzzle);
+  checkSolution: () => (state) => {
+    const proposal = state.board.flat();
+    const solution = sudoku.solvepuzzle(state.puzzle);
 
     const difference = proposal.filter(({ value, x, y }) => {
       const i = (y * 9) + x;
@@ -135,12 +136,20 @@ export default {
       };
     }
 
-    clearInterval(timer);
+    // or else... we have a winner!
+
+    clearInterval(state.timer);
 
     const hourglass = storage.getHourglass();
 
+    const newTimes = state.times.concat([hourglass]).sort((a, b) => a - b).slice(0, 10);
+
+    storage.setTimes(newTimes);
+
     return {
       modal: { message: `Hoorray you did it, in ${utils.countdown(hourglass)}!` },
+      times: newTimes,
+      resolved: true,
     };
   },
 

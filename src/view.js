@@ -67,6 +67,23 @@ const NumberButton = ({ i }) => (state, actions) => {
   );
 };
 
+const ButtonsBlock = () => (state, actions) => {
+  if (state.resolved) {
+    return null;
+  }
+
+  return (
+    <div class='number-btns'>
+      {utils.repeat(9, i => (
+        <NumberButton i={i} />
+      ))}
+      <div class='number-btn' onclick={() => actions.fill('')}>
+        <button>x</button>
+      </div>
+    </div>
+  );
+};
+
 const TimerBlock = () => (state, actions) => (
   <div class='timer'
     key={state.timerKey}
@@ -80,10 +97,35 @@ const TimerBlock = () => (state, actions) => (
   </div>
 );
 
-const Modal = () => ({ modal }, { hideModal }) => {
+const ScoreList = () => ({ times }) => (
+  <div>
+    {times.map((time, i) => (
+      <div>{i + 1}. {utils.countdown(time)}</div>
+    ))}
+  </div>
+);
+
+const Modal = () => ({ modal, resolved }, { hideModal }) => {
   if (!modal) {
     return null;
   }
+
+  const Content = () => {
+    if (resolved) {
+      return (
+        <div class='modal-content'>
+          {modal.message}
+          <ScoreList />
+        </div>
+      );
+    }
+
+    return (
+      <div class='modal-content'>
+        {modal.message}
+      </div>
+    );
+  };
 
   return (
     <section
@@ -95,9 +137,7 @@ const Modal = () => ({ modal }, { hideModal }) => {
         }
       }}
       >
-      <div class='modal-content'>
-        {modal.message}
-      </div>
+      <Content />
     </section>
   );
 };
@@ -119,14 +159,7 @@ export default () => (state, actions) => {
       <div id='sudoku'>
         <SudokuMainGrid />
       </div>
-      <div class='number-btns'>
-        {utils.repeat(9, i => (
-          <NumberButton i={i} />
-        ))}
-        <div class='number-btn' onclick={() => actions.fill('')}>
-          <button>x</button>
-        </div>
-      </div>
+      <ButtonsBlock />
       <TimerBlock />
       <div>
         <button onclick={() => actions.populate()}>
