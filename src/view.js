@@ -80,6 +80,28 @@ const TimerBlock = () => (state, actions) => (
   </div>
 );
 
+const Modal = () => ({ modal }, { hideModal }) => {
+  if (!modal) {
+    return null;
+  }
+
+  return (
+    <section
+      class='modal'
+      id='modal'
+      onclick={(e) => { // Hide with outside of modal click
+        if (e.target.id === 'modal') {
+          hideModal();
+        }
+      }}
+      >
+      <div class='modal-content'>
+        {modal.message}
+      </div>
+    </section>
+  );
+};
+
 export default () => (state, actions) => {
   if (!state.board) {
     return (
@@ -111,6 +133,7 @@ export default () => (state, actions) => {
           New game!
         </button>
       </div>
+      <Modal />
     </div>
   );
 };

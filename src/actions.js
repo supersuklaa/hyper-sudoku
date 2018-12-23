@@ -50,6 +50,7 @@ export default {
 
     return {
       board,
+      puzzle,
       numberAmounts,
       activeCell: null,
       timerKey: new Date().getTime(),
@@ -58,7 +59,7 @@ export default {
 
   activate: cell => ({ activeCell: cell }),
 
-  fill: value => ({ board, activeCell, numberAmounts }) => {
+  fill: value => ({ board, activeCell, numberAmounts }, actions) => {
     if (!activeCell || activeCell.isOriginal) {
       return null;
     }
@@ -83,6 +84,14 @@ export default {
 
     storage.setBoard(newBoard);
     storage.setAmounts(newNumberAmounts);
+
+    const totalAmount = newNumberAmounts.reduce((a, b) => a + b);
+
+    if (totalAmount === 81) {
+      setTimeout(() => {
+        actions.checkSolution();
+      }, 500);
+    }
 
     return {
       board: newBoard,
@@ -110,4 +119,30 @@ export default {
     clearInterval(timer);
     storage.setHourglass(0);
   },
+
+  checkSolution: () => ({ board, puzzle, timer }) => {
+    const proposal = board.flat();
+    const solution = sudoku.solvepuzzle(puzzle);
+
+    const difference = proposal.filter(({ value, x, y }) => {
+      const i = (y * 9) + x;
+      return value !== solution[i] + 1;
+    });
+
+    if (difference.length > 0) {
+      return {
+        modal: { message: `There were ${difference.length} mistakes!` },
+      };
+    }
+
+    clearInterval(timer);
+
+    const hourglass = storage.getHourglass();
+
+    return {
+      modal: { message: `Hoorray you did it, in ${utils.countdown(hourglass)}!` },
+    };
+  },
+
+  hideModal: () => ({ modal: null }),
 };
