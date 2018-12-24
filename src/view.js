@@ -143,7 +143,7 @@ const Modal = () => ({ modal, resolved }, { hideModal }) => {
       }}
       onremove={(e, done) => {
         e.classList.remove('active');
-        setTimeout(() => done, 750);
+        setTimeout(() => done(), 750);
       }}
       >
       <Content />
