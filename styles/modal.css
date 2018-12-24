@@ -9,11 +9,17 @@
   height: 100%; 
   overflow: auto;
   background-color: rgba(0, 0, 0, .45);
+  opacity: 0;
+  transition: .75s opacity;
+}
+
+.modal.active {
+  opacity: 1;
 }
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  background-color: #000;
   margin: auto;
   padding: 20px;
   width: 80%;
@@ -33,4 +39,12 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.modal-content .score-list {
+  margin: 1em auto;
+}
+
+.modal-content .score-list span {
+  color: #353535;
 }

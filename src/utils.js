@@ -9,11 +9,12 @@ const repeat = (length, iteratee) => {
 };
 
 const countdown = (hourglass) => {
-  let seconds = hourglass % 60;
-  let minutes = (hourglass - seconds) / 60;
+  const seconds = hourglass % 60;
+  const minutes = (hourglass - seconds) / 60;
 
-  if (seconds < 10) seconds = `0${seconds}`;
-  if (minutes < 10) minutes = `0${minutes}`;
+  if (seconds < 10) {
+    return `${minutes}:0${seconds}`;
+  }
 
   return `${minutes}:${seconds}`;
 };

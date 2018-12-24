@@ -98,9 +98,11 @@ const TimerBlock = () => (state, actions) => (
 );
 
 const ScoreList = () => ({ times }) => (
-  <div>
+  <div class='score-list'>
     {times.map((time, i) => (
-      <div>{i + 1}. {utils.countdown(time)}</div>
+      <div>
+        <span>{i + 1}.</span> {utils.countdown(time)}
+      </div>
     ))}
   </div>
 );
@@ -135,6 +137,13 @@ const Modal = () => ({ modal, resolved }, { hideModal }) => {
         if (e.target.id === 'modal') {
           hideModal();
         }
+      }}
+      oncreate={(e) => {
+        setTimeout(() => e.classList.add('active'), 0);
+      }}
+      onremove={(e, done) => {
+        e.classList.remove('active');
+        setTimeout(() => done, 750);
       }}
       >
       <Content />
