@@ -84,18 +84,28 @@ const ButtonsBlock = () => (state, actions) => {
   );
 };
 
-const TimerBlock = () => (state, actions) => (
-  <div class='timer'
-    key={state.timerKey}
-    oncreate={e => actions.initTimer(e)}
-    onremove={(e, done) => {
-      actions.zeroTimer();
-      done();
-    }}
-    >
-    00:00
-  </div>
-);
+const TimerBlock = () => (state, actions) => {
+  if (state.resolved) {
+    return (
+      <div class='timer' key={state.timerKey}>
+        {utils.countdown(state.hourglass)}
+      </div>
+    );
+  }
+
+  return (
+    <div class='timer'
+      key={state.timerKey}
+      oncreate={e => actions.initTimer(e)}
+      onremove={(e, done) => {
+        actions.zeroTimer();
+        done();
+      }}
+      >
+      00:00
+    </div>
+  );
+};
 
 const ScoreList = () => ({ times }) => (
   <div class='score-list'>

@@ -45,8 +45,10 @@ export default {
 
     const numberAmounts = countUsed(puzzle);
 
+    storage.setHourglass(0);
     storage.setBoard(board);
     storage.setAmounts(numberAmounts);
+    storage.setUnresolved();
 
     return {
       board,
@@ -117,7 +119,6 @@ export default {
 
   zeroTimer: () => ({ timer }) => {
     clearInterval(timer);
-    storage.setHourglass(0);
   },
 
   checkSolution: () => (state) => {
@@ -154,11 +155,13 @@ export default {
     const newTimes = state.times.concat([hourglass]).sort((a, b) => a - b).slice(0, 10);
 
     storage.setTimes(newTimes);
+    storage.setResolved();
 
     return {
       modal: { message: `Hoorray you did it, in ${utils.countdown(hourglass)}!` },
       times: newTimes,
       resolved: true,
+      hourglass,
     };
   },
 

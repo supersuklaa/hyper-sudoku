@@ -7,6 +7,8 @@ const get = key => ((localStorage.getItem(`${prefix}${key}`))
 
 const set = (key, data) => localStorage.setItem(`${prefix}${key}`, JSON.stringify(data));
 
+const remove = key => localStorage.removeItem(`${prefix}${key}`);
+
 export default {
   getBoard: () => get('board'),
   setBoard: data => set('board', data),
@@ -16,4 +18,7 @@ export default {
   setHourglass: data => set('hourglass', data),
   getTimes: () => get('times'),
   setTimes: data => set('times', data),
+  getResolved: () => get('resolved'),
+  setResolved: () => set('resolved', true),
+  setUnresolved: () => remove('resolved'),
 };

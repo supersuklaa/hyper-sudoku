@@ -7,6 +7,7 @@ export default {
   numberAmounts: storage.getAmounts() || [],
   timer: null,
   timerKey: new Date().getTime(),
-  resolved: false,
   modal: null,
+  resolved: storage.getResolved() || false,
+  hourglass: storage.getHourglass() || 0,
 };
