@@ -50,7 +50,6 @@ export default {
 
     return {
       board,
-      puzzle,
       numberAmounts,
       activeCell: null,
       timerKey: new Date().getTime(),
@@ -123,7 +122,17 @@ export default {
 
   checkSolution: () => (state) => {
     const proposal = state.board.flat();
-    const solution = sudoku.solvepuzzle(state.puzzle);
+    const puzzle = new Array(81).fill(null);
+
+    // fill the puzzle with original values
+    proposal.forEach((p) => {
+      if (p.isOriginal) {
+        const i = (p.y * 9) + p.x;
+        puzzle[i] = p.value - 1;
+      }
+    });
+
+    const solution = sudoku.solvepuzzle(puzzle);
 
     const difference = proposal.filter(({ value, x, y }) => {
       const i = (y * 9) + x;
