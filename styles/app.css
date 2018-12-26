@@ -26,7 +26,7 @@ body {
 }
 
 #holder {
-  background: var(--holder-background);
+  /* background: var(--holder-background); */
   max-width: var(--holder-width);
   margin: auto;
   height: 100%;
@@ -44,8 +44,8 @@ body {
 }
 
 .sudoku-grid > div {
-  border: 1px #444;
-  border-style: dotted;
+  border: 1px solid;
+  border-color: #262626 #111 #111 #262626;
 }
 
 .sudoku-grid .cell {
