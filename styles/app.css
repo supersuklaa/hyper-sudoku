@@ -1,16 +1,6 @@
 :root {
-  --main-font: 'Helvetica Neue', sans-serif;
-
-  --holder-width: 425px;
-  --holder-background: #1d1d1d;
-
-  --main-text-color: #636363;
-  --main-background: #191919;
-
-  --cal-background: #171717;
-  --cal-text: #797979;
-
-  --hilight-color: #7c80a3; 
+  --main-text-color: #828282;
+  --main-background: #41454e;
 
   height: 100%;
 }
@@ -18,16 +8,15 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--main-font);
-  background: var(--main-background);
+  font-family: 'Helvetica Neue', sans-serif;
+  background: #41454e;
   height: 100%;
   color: var(--main-text-color);
   font-size: 1.5em;
 }
 
 #holder {
-  /* background: var(--holder-background); */
-  max-width: var(--holder-width);
+  max-width: 425px;
   margin: auto;
   height: 100%;
   text-align: center;
@@ -45,18 +34,19 @@ body {
 
 .sudoku-grid > div {
   border: 1px solid;
-  border-color: #262626 #111 #111 #262626;
+  border-color: #50555f #2c2f35 #2c2f35 #50555f;
 }
 
 .sudoku-grid .cell {
   height: 32px;
   padding-top: 6px;
   /* transition: .5s all; */
-  color: #7b7d8e;
+  text-shadow: 1px 1px #262a31;
+  color: #707c92;
 }
 
 .sudoku-grid .cell.neighbour {
-  background: #161616;
+  background: #393e48;
 }
 
 .sudoku-grid .cell.original {
@@ -65,11 +55,11 @@ body {
 
 .sudoku-grid .cell.hilight {
   /* color: #b1b1b1; */
-  background: #0e0e0e;
+  background: #2e333c;
 }
 
 .sudoku-grid .cell.selected {
-  background: #20232b;
+  background: #414b5f;
 }
 
 .number-btns {

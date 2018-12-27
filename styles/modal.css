@@ -19,11 +19,11 @@
 
 /* Modal Content */
 .modal-content {
-  background-color: #000;
+  background-color: #373c44;
   margin: auto;
   padding: 20px;
   width: 80%;
-  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, .3);
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, .19);
   font-size: .85em;
 }
 
