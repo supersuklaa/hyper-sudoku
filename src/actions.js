@@ -152,15 +152,15 @@ export default {
 
     const hourglass = storage.getHourglass();
 
-    const newTimes = state.times.concat([hourglass]).sort((a, b) => a - b).slice(0, 10);
+    const times = state.times.concat([hourglass]);
 
-    storage.setTimes(newTimes);
+    storage.setTimes(times);
     storage.setResolved();
 
     return {
-      modal: { message: `Hoorray you did it, in ${utils.countdown(hourglass)}!` },
-      times: newTimes,
+      modal: { message: `yey you did it, in ${utils.countdown(hourglass)}!` },
       resolved: true,
+      times,
       hourglass,
     };
   },

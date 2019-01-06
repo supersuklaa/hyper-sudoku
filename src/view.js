@@ -109,7 +109,7 @@ const TimerBlock = () => (state, actions) => {
 
 const ScoreList = () => ({ times }) => (
   <div class='score-list'>
-    {times.map((time, i) => (
+    {times.sort((a, b) => a - b).map((time, i) => (
       <div>
         <span>{i + 1}.</span> {utils.countdown(time)}
       </div>
